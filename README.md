@@ -58,4 +58,40 @@ git clone https://github.com/Kia82/malware-boys-pentesting.git
 cd honeypot
 
 # Run the honeypot
+cd honeypot
 python3 honeypot.py
+```
+
+## 🗂️ Package Structure
+```
+honeypot/
+│
+├── honeypot/                  # Core package
+│   ├── __init__.py
+│   ├── main.py                # Entry point
+│   ├── config.py              # Config loader (ports, services, flags)
+│   ├── logger.py              # Logging setup
+│   ├── alert.py               # Alerting logic (email, webhook)
+│   │
+│   ├── services/              # Each protocol honeypot in its own module
+│   │   ├── __init__.py
+│   │   ├── ssh.py             # Fake SSH server
+│   │   ├── http.py            # Fake HTTP server
+│   │   └── ftp.py             # Fake FTP server
+│   │   
+│   └── utils/
+│       ├── isolation.py       # Docker/VPN/firewall helpers
+│       └── geoip.py           # IP geolocation
+│
+├── logs/                      # Structured logs stored here
+│   └── ...
+│
+├── data/                      # Dummy payloads, fake files (e.g. /etc/passwd)
+│   └── fake_passwd.txt
+│
+├── Dockerfile                 # Containerized deployment
+├── requirements.txt           # Dependencies
+├── README.md                  # Project overview
+└── run.py                     # Thin wrapper for CLI entry
+
+```
