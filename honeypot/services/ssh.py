@@ -10,8 +10,16 @@ BANNER = b"SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5\r\n"
 def handle_client(client_socket, addr):
     logging.info(f"[+] Connection from {addr}")
     client_socket.send(BANNER)
-    data = client_socket.recv(1024)
-    logging.info(f"[SSH] Received from {addr}: {data.decode(errors='ignore').strip()}")
+    logging.info(f"[SSH] Received from {addr}")
+    for i in range(3):
+        client_socket.send(B"Password: ")
+        password = client_socket.recv(1024)
+        logging.info(f"Password Attempt #{i}: {password}")
+        if i != 2:
+            client_socket.send(B"Permission denied, please try again.\n")
+        else:
+            client_socket.send(B"Permission denied (publickey,password).\n")
+    client_socket.shutdown(socket.SHUT_RDWR)
     client_socket.close()
 
 def start_ssh_honeypot(host='0.0.0.0', port=22):
