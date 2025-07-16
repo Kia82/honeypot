@@ -1,3 +1,4 @@
 ssh_honeypot.log
 /env
+.env
 /honeypot/services/ssh/__pycache__
