@@ -12,6 +12,9 @@ A filesystem decoy is a virtual system that mimics a real filesystem to deceive 
 
 #### Libraries 
 - fusepy
-- python-llfuse
-- UnionFS-FUSE
+- libfuse
+- UnionFS
+
+
+
 
