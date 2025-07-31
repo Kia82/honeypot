@@ -1,0 +1,80 @@
+SSL_CTX* ctx = SSL_CTX_new(TLS_client_method());
+
+SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, null); 
+
+SSL_CTX_load_verify_location(ctx, "/etc/ssl/certs/ca-bundle.crt", NULL); 
+
+SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION); 
+
+SSL_CTX_set_cipher_list(ctx, "HIGH:!aNULL:!MD5");
+
+int sock = socket(AF_INET, SOCK_STREAM, 0);
+
+connect(sock, (struct socketaddr*)&server_addr, sizeof(server_addr));
+
+SSL_new(ctx);
+
+SSL_set_fd(ssl, sock);
+
+SSL_shutdown(ssl);
+
+close(sock);
+
+SSL_free(ssl);
+
+SSL_CTX_free(ctx);
+
+SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+
+listen(listen_fd, SOMAXCONN);
+
+SSL *ssl = SSL_new(ctx);
+
+SSL_set_fd(ssl, client_fd);
+
+SSL_accept(ssl);
+
+SSL_get_error;
+
+ERR_print_errors;
+
+SSL_read;
+
+SSL_write;
+
+SSL_shutdown(ssl);
+
+SSL_free(ssl);
+
+SSL_CTX *ctx = SSL_CTX_new(TLS_server_method());
+
+SSL_CTX_use_certificate_file(ctx, "server.crt", SSL_FILETYPE_PEM);
+
+SSL_CTX_use_PrivateKey_file(ctx, "server.key", SSL_FILETYPE_PEM);
+
+SSL_CTX_set_min_proto_version(ctx, TLS1_2_VERSION);
+
+SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
+
+SSL *ssl = SSL_new(ctx);
+
+SSL_set_fd(ssl, client_fd);
+
+SSL_accept(ssl)
+
+ERR_print_errors_fp(stderr);
+
+SSL_free(ssl);
+
+int bytes = SSL_read(ssl, buf, sizeof(buf));
+
+SSL_write(ssl, response, resp_len);
+
+SSL_shutdown(ssl);
+
+SSL_free(ssl);
+
+SSL_CTX_free(ctx);
+
+
+
