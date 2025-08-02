@@ -1,11 +1,7 @@
 import socket
 import threading
 import logging
-<<<<<<< HEAD
 from alert import send_email_alert, Service
-=======
-from alert import send_email_alert
->>>>>>> dev
 
 logging.basicConfig(filename="ssh_honeypot.log", level=logging.INFO)
 
@@ -14,11 +10,7 @@ BANNER = b"SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5\r\n"
 def handle_client(client_socket, addr):
     logging.info(f"[+] Connection from {addr}")
     client_socket.send(BANNER)
-<<<<<<< HEAD
     send_email_alert(addr, Service.SSH)
-=======
-    send_email_alert(addr)
->>>>>>> dev
     logging.info(f"[SSH] Received from {addr}")
     for i in range(3):
         client_socket.send(B"Password: ")
