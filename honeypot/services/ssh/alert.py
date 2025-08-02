@@ -1,15 +1,21 @@
 import smtplib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
-import os
-
+from enum import Enum
 load_dotenv()
-def send_email_alert(ip):
+
+
+class Service(Enum):
+    SSH="SSH"
+    HTTP="HTTP"
+    FTP="FTP"
+
+def send_email_alert(ip, service: Service):
     sender_email = os.getenv('SENDER_EMAIL')
     receiver_email = os.getenv('RECEIVER_EMAIL')
     password = os.getenv('SENDER_PASSWORD')
-    subject = "⚠️ SSH Honeypot Alert"
-    body = f"A connection was made from IP: {ip}"
+    subject = "⚠️ Honeypot Alert"
+    body = f"A connection was made from IP: {ip}. Threat actor connected to the {service} service"
 
     msg = MIMEText(body)
     msg["Subject"] = subject
