@@ -1,4 +1,1 @@
-smtplib
-email.mime.text
 dotenv
-os
