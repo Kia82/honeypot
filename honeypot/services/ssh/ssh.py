@@ -1,8 +1,7 @@
-import logging.config
 import socket
 import threading
 import logging
-from alert import send_email_alert
+from honeypot.alert import send_email_alert, Service
 
 logging.basicConfig(filename="ssh_honeypot.log", level=logging.INFO)
 
@@ -11,7 +10,7 @@ BANNER = b"SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5\r\n"
 def handle_client(client_socket, addr):
     logging.info(f"[+] Connection from {addr}")
     client_socket.send(BANNER)
-    send_email_alert(addr)
+    send_email_alert(addr, Service.SSH)
     logging.info(f"[SSH] Received from {addr}")
     for i in range(3):
         client_socket.send(B"Password: ")
@@ -35,5 +34,7 @@ def start_ssh_honeypot(host='0.0.0.0', port=22):
         client, addr = sock.accept()
         threading.Thread(target=handle_client, args=(client,addr)).start()
 
-if __name__ == "__main__":
+def ssh_main():
     start_ssh_honeypot()
+# if __name__ == "__main__":
+#     start_ssh_honeypot()
