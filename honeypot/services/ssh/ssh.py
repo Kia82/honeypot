@@ -1,7 +1,7 @@
 import socket
 import threading
 import logging
-from alert import send_email_alert, Service
+from honeypot.alert import send_email_alert, Service
 
 logging.basicConfig(filename="ssh_honeypot.log", level=logging.INFO)
 
@@ -34,5 +34,7 @@ def start_ssh_honeypot(host='0.0.0.0', port=22):
         client, addr = sock.accept()
         threading.Thread(target=handle_client, args=(client,addr)).start()
 
-if __name__ == "__main__":
+def ssh_main():
     start_ssh_honeypot()
+# if __name__ == "__main__":
+#     start_ssh_honeypot()
